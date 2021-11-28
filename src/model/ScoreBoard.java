@@ -24,8 +24,11 @@ public class ScoreBoard implements Observer {
         }
     }
 
-    // displays the scores
-    public void display() {
-        // todo: add implementation
+    public int getP1Score() {
+        return p1Score;
+    }
+
+    public int getP2Score() {
+        return p2Score;
     }
 }
