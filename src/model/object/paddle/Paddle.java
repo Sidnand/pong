@@ -4,7 +4,7 @@ import model.object.Component;
 
 import java.awt.*;
 
-// represents a paddle with an inital x, y, and colour
+// represents a paddle with an initial x, y, and colour
 public class Paddle extends Component {
 
     public Paddle(int x0, int h, int canvasH, Color c) {

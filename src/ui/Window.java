@@ -1,11 +1,13 @@
 package ui;
 
 import javax.swing.*;
+import java.awt.*;
+import java.io.IOException;
 
 public class Window {
     private final JFrame frame;
 
-    public Window() {
+    public Window() throws IOException, FontFormatException {
         frame = new JFrame();
         GameCanvas canvas = new GameCanvas();
 

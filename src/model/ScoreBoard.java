@@ -1,6 +1,5 @@
 package model;
 
-import observer.Observable;
 import observer.Observer;
 import ui.GameCanvas.UPDATE_STATE;
 
@@ -14,7 +13,7 @@ public class ScoreBoard implements Observer {
     }
 
     @Override
-    public void update(Observable s, Object args) {
+    public void update(Object args) {
         UPDATE_STATE state = (UPDATE_STATE) args;
 
         if (state == UPDATE_STATE.P1_SCORE) {

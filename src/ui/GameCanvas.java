@@ -16,42 +16,32 @@ public class GameCanvas extends Canvas implements Runnable {
         P1_SCORE, P2_SCORE,
         P1_MOVE_UP, P1_MOVE_DOWN,
         P2_MOVE_UP, P2_MOVE_DOWN
-    };
+    }
 
-    private String ROBOTO_MONO_PATH = "./asset/font/roboto_mono.ttf";
-
-    private Font ROBOTO_MONO;
+    private final Font ROBOTO_MONO;
 
     private final int WIDTH = 800;
     private final int HEIGHT = 600;
-    private final int FPS = 15;
-
-    private final int SCORE_TEXT_X = 100;
-    private final int SCORE_TEXT_Y = 100;
-
-    private final int PADDLE_HEIGHT = 50;
-    private final int PADDLE_OFFSET = 10;
-
-    private final int BALL_DIAMETER = 10;
-
-    private final Color BLACK = new Color(0, 0, 0);
-    private final Color WHITE = new Color(255, 255, 255);
 
     private final ScoreBoard scoreBoard;
-    private final Keyboard keyboard;
     private final Ball ball;
     private final LeftPaddle p1;
     private final RightPaddle p2;
 
     private boolean running; // whether the game loop is running
 
-    public GameCanvas() {
+    public GameCanvas() throws IOException, FontFormatException {
         setSize(WIDTH, HEIGHT);
+        Color BLACK = new Color(0, 0, 0);
         setBackground(BLACK);
 
         scoreBoard = new ScoreBoard();
-        keyboard = new Keyboard();
+        Keyboard keyboard = new Keyboard();
+        int BALL_DIAMETER = 10;
+        Color WHITE = new Color(255, 255, 255);
         ball = new Ball(WIDTH / 2 - BALL_DIAMETER / 2, HEIGHT / 2 - BALL_DIAMETER / 2, BALL_DIAMETER, WHITE);
+        int PADDLE_HEIGHT = 50;
+        int PADDLE_OFFSET = 10;
         p1 = new LeftPaddle(PADDLE_OFFSET, PADDLE_HEIGHT, HEIGHT, WHITE);
         p2 = new RightPaddle(WIDTH - PADDLE_OFFSET, PADDLE_HEIGHT, HEIGHT, WHITE);
 
@@ -63,6 +53,7 @@ public class GameCanvas extends Canvas implements Runnable {
 
         ROBOTO_MONO = new Font("Roboto Mono", Font.PLAIN, 30);
 
+        String ROBOTO_MONO_PATH = "./asset/font/roboto_mono.ttf";
         loadFont(ROBOTO_MONO_PATH);
 
         start();
@@ -86,6 +77,7 @@ public class GameCanvas extends Canvas implements Runnable {
         final float nsPerSecond = 1000000000f;
 
         long lastTime = System.nanoTime();
+        int FPS = 15;
         double nsPerCycle = nsPerSecond / FPS;
 
         long lastTimer = System.currentTimeMillis();
@@ -114,13 +106,9 @@ public class GameCanvas extends Canvas implements Runnable {
     }
 
     // loads a font from a file
-    public void loadFont(String path) {
-        try {
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(path)));
-        } catch (IOException |FontFormatException e) {
-            System.out.println(e);
-        }
+    public void loadFont(String path) throws IOException, FontFormatException {
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File(path)));
     }
 
     private void update() {
@@ -141,6 +129,8 @@ public class GameCanvas extends Canvas implements Runnable {
     public void displayScore(Graphics g) {
         g.setFont(ROBOTO_MONO);
 
+        int SCORE_TEXT_X = 100;
+        int SCORE_TEXT_Y = 100;
         g.drawString(Integer.toString(scoreBoard.getP1Score()), SCORE_TEXT_X, SCORE_TEXT_Y);
         g.drawString(Integer.toString(scoreBoard.getP2Score()), WIDTH - SCORE_TEXT_X, SCORE_TEXT_Y);
     }

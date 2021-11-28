@@ -1,6 +1,5 @@
 package model.object.paddle;
 
-import observer.Observable;
 import observer.Observer;
 import ui.GameCanvas.UPDATE_STATE;
 
@@ -12,7 +11,7 @@ public class LeftPaddle extends Paddle implements Observer {
     }
 
     @Override
-    public void update(Observable s, Object args) {
+    public void update(Object args) {
         if (args == UPDATE_STATE.P1_MOVE_UP) {
             this.moveUp();
         } else if (args == UPDATE_STATE.P1_MOVE_DOWN) {
